@@ -1,0 +1,21 @@
+<h1><%= poll.title %></h1>
+<form action="/polls/<%= poll.id %>/vote" method="POST">
+  <% for (let option of options) { %>
+    <div>
+      <input type="checkbox" name="optionId" value="<%= option.id %>" 
+             <%= votes.some(v => v.option_id === option.id && v.user_id === userId) ? 'checked' : '' %>>
+      <%= option.text %> (<%= votes.filter(v => v.option_id === option.id).length %> votes)
+    </div>
+  <% } %>
+  <button type="submit">Vote</button>
+</form>
+
+<form action="/polls/<%= poll.id %>/unvote" method="POST">
+  <button type="submit">Unvote</button>
+</form>
+
+
+<form action="/polls/<%= poll.id %>/addOption" method="POST">
+  <input type="text" name="text" placeholder="New Option" required>
+  <button type="submit">Add Option</button>
+</form>
